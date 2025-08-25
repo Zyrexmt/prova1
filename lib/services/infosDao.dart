@@ -14,24 +14,24 @@ class InfosDao {
 
             request.headers.set(
                 HttpHeaders.contentTypeHeader,
-            'application/json; cahrset=utf-8',
+            'application/json; charset=utf-8',
             );
 
             request.write(jsonEncode({'email': email, 'senha': senha}));
 
             final HttpClientResponse response = await request.close();
 
+            print(email);
+            print(senha);
             if (response.statusCode == 200) {
                 String jsonString = await response.transform(utf8.decoder).join();
                 user = jsonDecode(jsonString);
             } else {
                 user = '';
                 print('Erro ${response.statusCode}');
-                await methodChannel.invokeMethod('toast', ['Login invalido']);
             }
         } catch (e) {
             print('Erro na requisicao: $e');
-            await methodChannel.invokeMethod('toast', ['Erro ai conectar a API']);
         }
     }
 }

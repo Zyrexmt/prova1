@@ -45,14 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     email = emailController.text.toString().trim();
     senha = senhaController.text.toString().trim();
     int tipoErro = 0;
-    if(!email.contains('@') || !email.contains('.')) {
-      tipoErro = 1;
-    }
-    if (!RegExp(
-      r'^(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9]{6,}$',
-    ).hasMatch(senha)) {
-      tipoErro = 2;
-    }
+
 
     switch(tipoErro){
       case 0: 
@@ -61,18 +54,14 @@ class _LoginPageState extends State<LoginPage> {
           await Infosuser().salvarInfo(user, mantenhaConectado);
           Navigator.of(context).pushReplacementNamed('/home');
         } else {
-          await methodChannel.invokeMethod('erroLogin');
+          print('erro login');
         }
         break;
       case 1:
-        await methodChannel.invokeMethod('toast', [
-          'Erro no campo email',
-        ]);
+      print('erro email');
         break;
       case 2:
-        await methodChannel.invokeMethod('toast', [
-          'Erro no campo senha',
-        ]);
+      print('erro senha');
         break;
     }
   }
@@ -96,10 +85,7 @@ class _LoginPageState extends State<LoginPage> {
             Icon(Icons.flutter_dash, size: 100, color: Colors.blue),
             SizedBox(height: 25),
             TextField(
-              onChanged: (text) {
-              email = text;
-              
-            },
+              controller: emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: 'Email',
@@ -107,9 +93,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ),
             SizedBox(height: 25),
-            TextField(onChanged: (text) {
-              senha = text;
-            },
+            TextField(
+              controller: senhaController,
             obscureText: true,
             decoration: InputDecoration(
               labelText: 'Senha',
