@@ -8,6 +8,32 @@ class SideBarMenu extends StatefulWidget {
 }
 
 class _SideBarMenuState extends State<SideBarMenu> {
+  int selectedIndex = 0;
+  
+  final List<Map<String, dynamic>> menuItems = [
+    {"label": "Meu Perfil", "route": '/profile'},
+    {"label": "Ranking", "route": '/welcome'},
+    {"label": "Matérias", "route": '/matter'},
+  ];
+
+  @override
+  void initState () {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateSelectedIndex();
+    });
+  }
+
+  void _updateSelectedIndex() {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
+    final index = menuItems.indexWhere((item) => item["route"] == currentRoute);
+    if(index != -1) {
+      setState(() {
+        selectedIndex = index;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -16,11 +42,48 @@ class _SideBarMenuState extends State<SideBarMenu> {
           height: MediaQuery.sizeOf(context).height,
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
             Icon(Icons.flutter_dash, size: 100, color: Colors.blue,),
+
+            Padding(padding: EdgeInsets.symmetric(vertical: 50)),            
+            Column(
+              children: [
+                ...List.generate(menuItems.length, (index) {
+              final item = menuItems[index];
+              final isSelected = selectedIndex == index;
+
+              return InkWell(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                    Navigator.of(context).pushReplacementNamed(item["route"]);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade400),
+                      color: isSelected ? Colors.black : Colors.transparent,
+                    ),
+                    child: Text(item["label"], 
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: isSelected ? Colors.white : Colors.black,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      ), textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              }),
+            ],
+          ),
+
+          Spacer(),
+
+
             TextButton(onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/login');
+              Navigator.of(context).pushReplacementNamed('/welcome');
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.black,
@@ -38,12 +101,12 @@ class _SideBarMenuState extends State<SideBarMenu> {
                     Text('Log out')
                   ],
               ),
-            ))
-            ]
-          
-          ),
+            ))  
+          ]),
         ),
       ),
     );
   }
 }
+
+

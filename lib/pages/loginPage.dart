@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         user = jsonDecode(
           await methodChannel.invokeMethod(user),
         );
-        Navigator.of(context).pushReplacementNamed('/home');
+        Navigator.of(context).pushReplacementNamed('/matter');
       }
     }
   }
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
         await InfosDao().validarLogin(email, senha);
         if(user.toString().isNotEmpty) {
           await Infosuser().salvarInfo(user, mantenhaConectado);
-          Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/matter');
         } else {
           print('erro login');
         }
@@ -83,22 +83,25 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.flutter_dash, size: 100, color: Colors.blue),
-            SizedBox(height: 25),
+            SizedBox(height: 25,),
+            Row(children: [
+              Text('Email', style: TextStyle(fontSize: 16),)
+            ],),
             TextField(
               controller: emailController,
-            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
             ),
             ),
             SizedBox(height: 25),
+            Row(children: [
+              Text('Senha', style: TextStyle(fontSize: 16),)
+            ],),
             TextField(
               controller: senhaController,
             obscureText: true,
             decoration: InputDecoration(
-              labelText: 'Senha',
-              border: OutlineInputBorder()
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
             ),
             ),
             Row(

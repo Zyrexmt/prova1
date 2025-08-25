@@ -26,12 +26,24 @@ class _WelcomePageState extends State<WelcomePage> {
             child: ElevatedButton(onPressed: () {
               Navigator.of(context).pushReplacementNamed('/login');
             },
-            child: Text('Próximo')
-            ),),
-            
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black, 
+              foregroundColor: Colors.white), 
+              child: Text('Login'),
+            ),
+            ),
+            ElevatedButton(onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/signup');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black, 
+              foregroundColor: Colors.white), 
+              child: Text('Cadastro'),
+              )
           ],
         )
       )
     );
   }
 }
+

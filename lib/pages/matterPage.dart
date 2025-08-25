@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:prova1_2/widgets/MateriaCardWidget.dart';
 import 'package:prova1_2/widgets/SidebarWidget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class  MatterPage extends StatefulWidget {
+  const  MatterPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State< MatterPage> createState() => _MatterPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MatterPageState extends State< MatterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
