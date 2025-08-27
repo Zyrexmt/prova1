@@ -13,7 +13,9 @@ class _MatterPageState extends State< MatterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+      backgroundColor: Colors.white,
         leading: Builder(
       builder: (context) {
         return IconButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prova1_2/services/infosUser.dart';
 
 class SideBarMenu extends StatefulWidget {
   const SideBarMenu({super.key});
@@ -12,7 +13,7 @@ class _SideBarMenuState extends State<SideBarMenu> {
   
   final List<Map<String, dynamic>> menuItems = [
     {"label": "Meu Perfil", "route": '/profile'},
-    {"label": "Ranking", "route": '/welcome'},
+    {"label": "Ranking", "route": '/ranking'},
     {"label": "Matérias", "route": '/matter'},
   ];
 
@@ -34,9 +35,12 @@ class _SideBarMenuState extends State<SideBarMenu> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
       child: SafeArea(
         child: Container(
           height: MediaQuery.sizeOf(context).height,
@@ -83,6 +87,7 @@ class _SideBarMenuState extends State<SideBarMenu> {
 
 
             TextButton(onPressed: () {
+              Infosuser().logout;
               Navigator.of(context).pushReplacementNamed('/welcome');
             },
             style: TextButton.styleFrom(

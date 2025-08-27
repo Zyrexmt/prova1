@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prova1_2/pages/matterPage.dart';
 import 'package:prova1_2/pages/loginPage.dart';
 import 'package:prova1_2/pages/profilePage.dart';
+import 'package:prova1_2/pages/rankingPage.dart';
 import 'package:prova1_2/pages/signupPage.dart';
 import 'package:prova1_2/pages/splashPage.dart';
 import 'package:prova1_2/pages/welcomePage.dart';
@@ -25,7 +26,7 @@ class AppWidget extends StatelessWidget {
           '/matter': (context) => const MatterPage(),
           '/signup': (context) => const SignUp(),
           '/profile': (context) => const ProfilePage(),
-          
+          '/ranking': (context) => const RankingPage(),
         },
 
         initialRoute: Appcontroller.instance.splashCompleted ? '/welcome' : '/splash',

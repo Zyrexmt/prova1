@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prova1_2/services/infosDao.dart';
+import 'package:prova1_2/global/variaveis.dart';
+
+import 'package:prova1_2/services/infosUser.dart';
 import 'package:prova1_2/widgets/InputFieldWidget.dart';
 import 'package:prova1_2/widgets/ReturnStartWidget.dart';
 
@@ -21,12 +25,35 @@ emailController = TextEditingController(),
 senhaController = TextEditingController();
 
 
+  void registrarUSuario() async {
+    nome = nomeController.text.toString().trim();
+    cidade = cidadeController.text.toString().trim();
+    curso = cursoController.text.toString().trim();
+    email = emailController.text.toString().trim();
+    senha = senhaController.text.toString().trim();
 
+    if(nome.isEmpty || cidade.isEmpty || curso.isEmpty || email.isEmpty || senha.isEmpty){
+       print('Por favor, preencha todos os campos.');
+    return;
+    }
+
+    await InfosDao().registrarUsuario(nome, cidade, curso, email, senha);
+
+    if(user.toString().isNotEmpty){
+    await Infosuser().salvarInfo(user, true);
+    await InfosDao().validarLogin(email, senha);
+    Navigator.of(context).pushReplacementNamed('/profile'); 
+    } else {
+      print('Erro cadastro');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+      backgroundColor: Colors.white,
         leading: ReturnStartButton(),
         ),
         
@@ -46,16 +73,8 @@ senhaController = TextEditingController();
               InputField(senhaController, 'Senha', true),
               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
               ElevatedButton(onPressed: (
-              ) {
-                Navigator.of(context).pushReplacementNamed('/matter');
-              print(nomeController.text);
-              print(cidadeController.text);
-              print(cursoController.text);
-              print(emailController.text);
-              print(senhaController.text);
-
-
-              },
+              registrarUSuario
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 foregroundColor: Colors.white

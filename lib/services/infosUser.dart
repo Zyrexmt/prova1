@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:prova1_2/global/variaveis.dart';
 
 class Infosuser {
@@ -32,4 +33,14 @@ class Infosuser {
       file.delete(recursive: true);
     }
   }
+
+  Future<Map<String, dynamic>?> getUserData() async {
+    final file = await getFile();
+    if (await file.exists()){
+      final jsonString = await file.readAsString();
+      final data = jsonDecode(jsonString);
+      return data['user'];
+    }
+    return null;
+  } 
 }

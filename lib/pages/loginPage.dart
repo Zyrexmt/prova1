@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
         await InfosDao().validarLogin(email, senha);
         if(user.toString().isNotEmpty) {
           await Infosuser().salvarInfo(user, mantenhaConectado);
-          Navigator.of(context).pushReplacementNamed('/matter');
+          Navigator.of(context).pushReplacementNamed('/profile');
         } else {
           print('erro login');
         }
@@ -71,8 +71,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      backgroundColor: Colors.white,
       appBar: AppBar(
+      backgroundColor: Colors.white,
         leading: ReturnStartButton(),
       ),
       body: SizedBox(
