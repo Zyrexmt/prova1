@@ -91,4 +91,26 @@ class InfosDao {
     }
 
 
+    Future<List<dynamic>> buscarDisciplinas(int alunoId) async {
+      try {
+        final client = HttpClient();
+        final request = await client.getUrl(
+          Uri.parse("http://10.0.2.2:3000/disciplinas-usuario/$alunoId")
+        );
+        final response = await request.close();
+
+        if(response.statusCode == 200) {
+          String jsonString = await response.transform(utf8.decoder).join();
+          final data = jsonDecode(jsonString);
+          return data;
+        } else {
+          print("Erro ao buscar disciplinas: ${response.statusCode}");
+          return [];
+        }
+      }catch (e) {
+        print('Erro ao buscar disciplinas: $e');
+        return [];
+      }
+    } 
+
 }
