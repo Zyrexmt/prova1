@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class PointRanking extends StatelessWidget {
-  const PointRanking({required this.posicao, required this.nome, required this.pontos, required this.foto, super.key});
+  const PointRanking(this.posicao, this.nome, this.pontos, this.foto,{super.key});
 
   final int posicao;
   final String nome;
@@ -31,7 +33,7 @@ class PointRanking extends StatelessWidget {
       
             CircleAvatar(
               radius: 22,
-              backgroundImage: AssetImage(foto),
+              backgroundImage: MemoryImage(base64Decode(foto.split(',')[1])),
             ),
             const SizedBox(width: 12,),
       

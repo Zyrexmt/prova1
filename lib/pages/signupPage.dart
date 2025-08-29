@@ -16,13 +16,14 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
- String nome = '', cidade = '', curso = '',email = '', senha = '';
+ String nome = '', cidade = '', curso = '',email = '', senha = '', confirm = '';
 
 TextEditingController nomeController = TextEditingController(),
 cidadeController = TextEditingController(),
 cursoController = TextEditingController(),
 emailController = TextEditingController(),
-senhaController = TextEditingController();
+senhaController = TextEditingController(),
+senhaConfirmController = TextEditingController();
 
 
   void registrarUSuario() async {
@@ -31,6 +32,7 @@ senhaController = TextEditingController();
     curso = cursoController.text.toString().trim();
     email = emailController.text.toString().trim();
     senha = senhaController.text.toString().trim();
+    confirm = senhaConfirmController.toString().trim();
 
     if(nome.isEmpty || cidade.isEmpty || curso.isEmpty || email.isEmpty || senha.isEmpty){
        print('Por favor, preencha todos os campos.');
@@ -38,7 +40,6 @@ senhaController = TextEditingController();
     }
 
     await InfosDao().registrarUsuario(nome, cidade, curso, email, senha);
-
     if(user.toString().isNotEmpty){
     await Infosuser().salvarInfo(user, true);
     await InfosDao().validarLogin(email, senha);
@@ -71,10 +72,15 @@ senhaController = TextEditingController();
               InputField(cursoController, 'Curso', true),
               InputField(emailController, 'Email', true),
               InputField(senhaController, 'Senha', true),
+              InputField(senhaConfirmController, 'Confirmar Senha', true),
               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-              ElevatedButton(onPressed: (
-              registrarUSuario
-              ),
+              ElevatedButton(onPressed: () {
+                if (senhaConfirmController.text.trim() == senhaController.text.trim()) {
+                  registrarUSuario();
+                } else {
+                  print('senhas diferentes');
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 foregroundColor: Colors.white

@@ -79,7 +79,7 @@ class InfosDao {
           String jsonString = await response.transform(utf8.decoder).join();
           final dados = jsonDecode(jsonString); 
 
-          return dados['ranking'] ?? [];
+          return dados;
         } else {
           print('Erro ao buscar ranking: ${response.statusCode}');
           return [];
